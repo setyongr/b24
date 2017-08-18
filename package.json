@@ -1,6 +1,6 @@
 {
   "name": "b24",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Bitrix24 Client Library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

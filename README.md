@@ -68,7 +68,7 @@ const bitrix24 = new Bitrix24({
 
 // Bitrix auth
 app.get('/auth', (req, res) => {
-    res.redirect(bitrix24.auth.authorizationUri);
+    res.redirect(bitrix24.auth.authorization_uri);
 });
 
 // Callback service parsing the authorization token and asking for the access token
@@ -81,6 +81,10 @@ app.get('/callback', async (req, res) => {
         console.log(err)
         return res.status(500).json({message:"Authentication Failed"});
     }
+});
+
+app.listen(3000, () => {
+    console.log('Server started on port 3000');
 });
 ```
 
@@ -120,7 +124,7 @@ const bitrix24 = new Bitrix24({
 
 // Bitrix auth
 app.get('/auth', (req, res) => {
-    res.redirect(bitrix24.auth.authorizationUri);
+    res.redirect(bitrix24.auth.authorization_uri);
 });
 
 // Callback service parsing the authorization token and asking for the access token
