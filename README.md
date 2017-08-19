@@ -136,8 +136,6 @@ const {Bitrix24} = require('b24');
 
 const app = express()
 
-const {Bitrix24} = require('b24');
-
 const bitrix24 = new Bitrix24({
     config: {
         mode: "webhook",
