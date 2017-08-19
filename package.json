@@ -1,6 +1,6 @@
 {
   "name": "b24",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Bitrix24 Client Library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,7 +17,7 @@
     "bitrix24"
   ],
   "author": "setyongr",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/setyongr/b24/issues"
   },
