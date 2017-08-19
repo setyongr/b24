@@ -1,6 +1,6 @@
 const {Bitrix24} = require('../dist');
 
-function generateBitrix(hookResult){
+function generateApiMode(hookResult){
     const bitrix = new Bitrix24({
       config: {
         host: process.env.TEST_BITRIX_HOST || "test",
@@ -34,6 +34,21 @@ function generateBitrix(hookResult){
     return bitrix;
 }
 
+
+function generateWebhookMode(hookResult){
+  const bitrix = new Bitrix24({
+    config: {
+      mode: "webhook",
+      host: "test",
+      user_id : "1",
+      code : "test_code",
+    },
+  });
+  
+  return bitrix;
+}
+
 module.exports = {
-    generateBitrix: generateBitrix
+    generateApiMode: generateApiMode,
+    generateWebhookMode: generateWebhookMode
 }

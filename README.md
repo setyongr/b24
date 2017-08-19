@@ -3,12 +3,25 @@
 ## Installation
 `npm install b24 --save`
 
-## Initialization
+## Modes
+There are 2 modes to use this library. API mode and Webhook mode.
+
+You can specify the mode when initializing Bitrix24.
+
+### API Mode
+When you use API mode, you must authenticate the user using OAuth. See Authentication for example.
+You also must provide `client_id`, `client_secret`, and `redirect_uri` in `config` block. 
+
+#### Method Hook
+There are 2 method that will called when using API mode. `saveToken(data)` and `retriveToken`. You can use this to save and get token from database.
+
+#### Example
 ```JavaScript
 const {Bitrix24} = require('b24');
 
 const bitrix24 = new Bitrix24({
     config: {
+        mode: "api",
         host: "your bitrix host",
         client_id : "your client id",
         client_secret : "your client secret",
@@ -29,9 +42,28 @@ const bitrix24 = new Bitrix24({
 })
 ```
 
+### Webhook Mode
+It use webhook feature from Bitrix24
+To use this you must provide `user_id` and `code` in `config` block.
+
+#### Example
+```JavaScript
+const {Bitrix24} = require('b24');
+
+const bitrix24 = new Bitrix24({
+    config: {
+        mode: "webhook",
+        host: "your bitrix host",
+        user_id: "1",
+        code: "your_webhook_code"
+    }
+})
+```
+
+
 ## Authentication
 
-It just OAuth2
+You must do authentication when use API mode. It just OAuth2
 
 Step:
 1. Visit url provided by `bitrix24.auth.authorization_uri`
@@ -45,8 +77,10 @@ const express = require('express');
 const {Bitrix24} = require('b24');
 
 const app = express()
+
 const bitrix24 = new Bitrix24({
     config: {
+        mode: "api",
         host: "your bitrix host",
         client_id : "your client id",
         client_secret : "your client secret",
@@ -93,7 +127,7 @@ For complete API refrence visit https://training.bitrix24.com/rest_help/index.ph
 
 To Run Bitrix24 API we need to use `callMethod(method, param)` method.
 
-pass the method you want to run in `method` parameter, `param` parameter is optional, it used to add paramter to method that you call, visit the official API reference to see all posible parameter.
+pass the method you want to run in `method` parameter, `param` parameter is optional, it used to add parameter to method that you call, visit the official API reference to see all possible parameter.
 
 Example:
 ```JavaScript
@@ -101,43 +135,17 @@ const express = require('express');
 const {Bitrix24} = require('b24');
 
 const app = express()
+
+const {Bitrix24} = require('b24');
+
 const bitrix24 = new Bitrix24({
     config: {
+        mode: "webhook",
         host: "your bitrix host",
-        client_id : "your client id",
-        client_secret : "your client secret",
-        redirect_uri : "http://localhost:3000/callback"
-    },
-    methods: {
-        async saveToken(data){
-            //Save token to database
-        },
-        async retriveToken(){
-            //Retrive token from database
-            return {
-                access_token: "youraccesstoken",
-                refresh_token: "yourrefreshtoken"
-            }
-        }
+        user_id: "1",
+        code: "your_webhook_code"
     }
 })
-
-// Bitrix auth
-app.get('/auth', (req, res) => {
-    res.redirect(bitrix24.auth.authorization_uri);
-});
-
-// Callback service parsing the authorization token and asking for the access token
-app.get('/callback', async (req, res) => {
-    try{
-        const code = req.query.code;
-        const result = await bitrix24.auth.getToken(code);
-        return res.json(result);
-    }catch(err){
-        console.log(err)
-        return res.status(500).json({message:"Authentication Failed"});
-    }
-});
 
 // Get all Bitrix24 User
 app.get('/allUser', async (req, res) => {

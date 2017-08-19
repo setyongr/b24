@@ -33,7 +33,7 @@ export default class BitrixAuth{
         }));
 
         let parsed = JSON.parse(result);
-        if(this.init.methods.saveToken){
+        if(this.init.methods && this.init.methods.saveToken){
             await this.init.methods.saveToken(parsed);        
         }
         return parsed;
@@ -45,7 +45,7 @@ export default class BitrixAuth{
      * @return {Promise} Token result object
      */
     async refreshToken(token?:string){
-        if((!token) && (this.init.methods.retriveToken)){
+        if((!token) && (this.init.methods && this.init.methods.retriveToken)){
             let retriveToken = await this.init.methods.retriveToken();
             token = retriveToken.refresh_token;
         }else if(!token){
@@ -62,7 +62,7 @@ export default class BitrixAuth{
         const result = await request.get(url);
 
         let parsed = JSON.parse(result);        
-        if(this.init.methods.saveToken){
+        if(this.init.methods && this.init.methods.saveToken){
             await this.init.methods.saveToken(parsed);        
         }
 
