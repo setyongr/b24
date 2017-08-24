@@ -17,9 +17,9 @@ There are 2 method that will called when using API mode. `saveToken(data)` and `
 
 #### Example
 ```JavaScript
-const {Bitrix24} = require('b24');
+const b24 = require('b24');
 
-const bitrix24 = new Bitrix24({
+const bitrix24 = new b24.Bitrix24({
     config: {
         mode: "api",
         host: "your bitrix host",
@@ -46,11 +46,15 @@ const bitrix24 = new Bitrix24({
 It use webhook feature from Bitrix24
 To use this you must provide `user_id` and `code` in `config` block.
 
+`user_id` can be obtained throught my profile page. See the URL, e.g https://k2d2.bitrix24.com/company/personal/user/4/. The value would be `4`
+
+`code` can be obtained throught Application -> Web hooks -> ADD WEB HOOK -> Inbound web hook
+
 #### Example
 ```JavaScript
-const {Bitrix24} = require('b24');
+const b24 = require('b24');
 
-const bitrix24 = new Bitrix24({
+const bitrix24 = new b24.Bitrix24({
     config: {
         mode: "webhook",
         host: "your bitrix host",
@@ -74,11 +78,11 @@ Step:
 Example:
 ```JavaScript
 const express = require('express');
-const {Bitrix24} = require('b24');
+const b24 = require('b24');
 
 const app = express()
 
-const bitrix24 = new Bitrix24({
+const bitrix24 = new b24.Bitrix24({
     config: {
         mode: "api",
         host: "your bitrix host",
@@ -132,11 +136,11 @@ pass the method you want to run in `method` parameter, `param` parameter is opti
 Example:
 ```JavaScript
 const express = require('express');
-const {Bitrix24} = require('b24');
+const b24 = require('b24');
 
 const app = express()
 
-const bitrix24 = new Bitrix24({
+const bitrix24 = new b24.Bitrix24({
     config: {
         mode: "webhook",
         host: "your bitrix host",
