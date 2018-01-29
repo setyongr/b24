@@ -30,6 +30,7 @@
   "dependencies": {
     "@types/request-promise": "^4.1.36",
     "dotenv": "^4.0.0",
+    "qs": "^6.5.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.1"
   }
