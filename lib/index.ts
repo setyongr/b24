@@ -1,5 +1,5 @@
 import * as request from 'request-promise';
-import * as qs from 'querystring';
+import * as qs from 'qs';
 
 import Config from './config';
 import BitrixAuth from './auth';
